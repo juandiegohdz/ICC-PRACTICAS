@@ -1,0 +1,12 @@
+//Alumno: Juan Diego Hernández Becerril-322178481
+# Práctica 02 - Reloj   
+
+## Funcionalidad  
+- Se representa un **reloj de manecillas** con formato `HH:MM:SS`.  
+- **Incrementa los segundos automáticamente** y ajusta los minutos y horas cuando sea necesario.  
+- Se ejecuta en un **ciclo `while`**, actualizando la hora cada segundo.  
+- Usa `Thread.sleep(1000)` para simular el avance real del tiempo.  
+
+## Archivos  
+- `Reloj.java` → Se modela el reloj y maneja la lógica de incremento.  
+- `Main.java` → Ejecuta la simulación del reloj en la terminal.  
