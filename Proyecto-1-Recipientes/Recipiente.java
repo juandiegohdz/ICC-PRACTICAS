@@ -7,26 +7,18 @@
  * Clase que representa un recipiente cilíndrico capaz de almacenar líquidos.
  * Implementa la interfaz ServiciosRecipiente.
  */
-class Recipiente implements ServiciosRecipiente {
-
-    /**
-     * Altura del recipiente en centímetros.
-     */
+/**
+ * Clase que representa un recipiente cilíndrico capaz de almacenar líquidos.
+ * Implementa la interfaz ServiciosRecipiente.
+ */
+public class Recipiente implements ServiciosRecipiente {
     private double altura;
-
-    /**
-     * Radio de la base del recipiente en centímetros.
-     */
     private double radio;
-
-    /**
-     * Cantidad actual de líquido en centímetros cúbicos.
-     */
     private double cantidadActual;
 
     /**
-     * Constructor que inicializa un recipiente con altura, radio y cantidad de líquido.
-     * La cantidad actual se ajusta para estar entre 0 y la capacidad máxima.
+     * Constructor para inicializar un recipiente con altura, radio y cantidad de líquido.
+     * Asegura que la cantidad inicial no supere la capacidad total.
      */
     public Recipiente(double altura, double radio, double cantidadActual) {
         this.altura = altura;
@@ -35,14 +27,14 @@ class Recipiente implements ServiciosRecipiente {
     }
 
     /**
-     * Calcula la capacidad total del recipiente.
+     * Calcula y devuelve la capacidad total del recipiente.
      */
     public double capacidad() {
         return Math.PI * Math.pow(radio, 2) * altura;
     }
 
     /**
-     * Calcula la cantidad de espacio disponible en el recipiente.
+     * Calcula y devuelve la capacidad restante del recipiente.
      */
     public double capacidadRestante() {
         return capacidad() - cantidadActual;
@@ -63,21 +55,18 @@ class Recipiente implements ServiciosRecipiente {
     }
 
     /**
-     * Agrega líquido al recipiente y devuelve el excedente si no cabe todo.
+     * Agrega una nueva cantidad de líquido al recipiente, respetando su capacidad máxima.
+     * Devuelve el excedente si la cantidad añadida supera la capacidad disponible.
      */
     public double rellena(double cantidad) {
         double espacioDisponible = capacidadRestante();
-        if (cantidad <= espacioDisponible) {
-            cantidadActual += cantidad;
-            return 0;
-        } else {
-            cantidadActual = capacidad();
-            return cantidad - espacioDisponible;
-        }
+        double exceso = Math.max(0, cantidad - espacioDisponible);
+        cantidadActual += cantidad - exceso;
+        return exceso;
     }
 
     /**
-     * Vacía el recipiente y devuelve la cantidad de líquido que contenía.
+     * Vacía completamente el recipiente y devuelve la cantidad de líquido que contenía.
      */
     public double vacia() {
         double cantidadVaciada = cantidadActual;
@@ -86,7 +75,7 @@ class Recipiente implements ServiciosRecipiente {
     }
 
     /**
-     * Vierte el contenido en otro recipiente, respetando su capacidad máxima.
+     * Vierte el contenido de este recipiente en otro, respetando la capacidad del destino.
      */
     public void vierte(Recipiente otro) {
         double excedente = otro.rellena(cantidadActual);
@@ -94,35 +83,35 @@ class Recipiente implements ServiciosRecipiente {
     }
 
     /**
-     * Compara las dimensiones del recipiente con otro.
+     * Compara si dos recipientes tienen las mismas dimensiones.
      */
     public boolean mismasDimensiones(Recipiente otro) {
         return this.altura == otro.altura && this.radio == otro.radio;
     }
 
     /**
-     * Compara la capacidad total del recipiente con otro.
+     * Compara si dos recipientes tienen la misma capacidad total.
      */
     public boolean mismaCapacidad(Recipiente otro) {
         return this.capacidad() == otro.capacidad();
     }
 
     /**
-     * Compara la cantidad actual de líquido con otro recipiente.
+     * Determina si este recipiente tiene más líquido que otro.
      */
     public boolean contieneMas(Recipiente otro) {
         return this.cantidadActual > otro.cantidadActual;
     }
 
     /**
-     * Compara la capacidad restante con otro recipiente.
+     * Determina si este recipiente tiene más capacidad restante que otro.
      */
     public boolean cabeMas(Recipiente otro) {
         return this.capacidadRestante() > otro.capacidadRestante();
     }
 
     /**
-     * Crea un recipiente vacío con la capacidad equivalente a la cantidad actual.
+     * Crea un nuevo recipiente vacío con capacidad igual a la cantidad actual del recipiente original.
      */
     public Recipiente creaContenedorJusto() {
         return new Recipiente((cantidadActual / capacidad()) * altura, radio, 0);
