@@ -37,15 +37,11 @@ Para interactuar, el usuario debe ingresar el número de la opción deseada y se
 1. Abre la terminal en la carpeta del proyecto.
 2. Compila el código con:
 
-"""bash
 javac --release 17 UsoRecipiente.java
-"""
 
 3. Ejecuta el programa:
 
-"""bash
 java UsoRecipiente
-"""
 
 ## Entorno de desarrollo
 - Visual Studio Code
